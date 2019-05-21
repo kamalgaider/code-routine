@@ -1,9 +1,11 @@
+
+
+public class Lnkst{
+
 class Node{
 	public int val;
 	public Node next;
 }
-
-public class Lnkst{
 
 	public Node head;
 	public Node cur;
@@ -37,28 +39,70 @@ public class Lnkst{
 		}
 	}
 
+    public void addAtIndex(int index, int val) {
+    	if (index < 0){
+			return;
+		}
+		if(index == 0){
+			if(this.head == null){
+				this.head = new Node();
+				this.head.val = val;
+			}
+			else{
+				Node tmp = new Node();
+		    	tmp.val = val;
+		    	tmp.next = this.head;
+		    	this.head = tmp;
+			}
+		}
+		else if(this.head != null){
+			int i = 0;
+			this.cur = this.head;
+			while(i <= index-1){
+				if(i == (index-1)){
+					Node tmp = new Node();
+		    		tmp.val = val;
+		    		tmp.next = this.cur.next;
+		    		this.cur.next = tmp;
+		    		return;
+				}
+				this.cur = this.cur.next;
+				if(this.cur == null){
+					return;
+				}
+				i++;
+			}
+		}
+    }
+
 	public void deleteIndex(int index){
 		if (index < 0){
 			return;
 		}
 		if (this.head != null){
-			if(index == 0){
+			if (index == 0){
 				this.head = this.head.next;
 				return;
 			}
-			int i = 0;
-			this.cur = this.head;
-			while(i < index - 1){
-				if(this.cur.next != null){
-					this.cur = this.cur.next;	
+			else{
+				int i =0;
+				this.cur = this.head;
+				while(i <= index-1){
+					if(i == (index-1)){
+						if(this.cur.next == null){
+							return;
+						}
+						else{
+							this.cur.next = this.cur.next.next;
+						}
+					}
+					i++;
+					if(this.cur == null){
+							return;
+					}
+					this.cur =this.cur.next;
 				}
-				else{
-					return;
-				}
-				i++;
 			}
-			this.cur.next = this.cur.next.next; 
-
 		}
 		else{
 			return;
@@ -106,17 +150,32 @@ public class Lnkst{
 	public static void main(String args[]){
 
 	Lnkst ls = new Lnkst();
-	ls.traverse();
-		System.out.println(ls.getIndex(2));
-	ls.insertAtHead(4);
-	ls.insertAtEnd(5);
-	ls.insertAtEnd(6);
-	ls.insertAtEnd(7);
-	ls.insertAtHead(3);
-	ls.traverse();
-	System.out.println(ls.getIndex(2));
-	System.out.println(ls.getIndex(10));
-	ls.deleteIndex(7);
-	ls.traverse();
+	
+	ls.insertAtHead(38);
+	ls.insertAtHead(45);	
+	ls.deleteIndex(2);
+
+	ls.addAtIndex(1,24);
+	ls.insertAtEnd(36);
+	ls.addAtIndex(3,72);
+	
+	ls.insertAtEnd(76);
+	ls.insertAtHead(7);
+	ls.insertAtHead(36);
+	ls.insertAtHead(34);
+	ls.insertAtEnd(91);
+	ls.insertAtEnd(69);
+	ls.insertAtHead(37);
+	ls.insertAtEnd(38);
+	ls.insertAtEnd(4);
+	ls.insertAtHead(66);
+	ls.insertAtEnd(38);
+	ls.deleteIndex(99);
+
+	//ls.traverse();
+	
+	//System.out.println(ls.getIndex(10));
+	
+	
 	}
 }
